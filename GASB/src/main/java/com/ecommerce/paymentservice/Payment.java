@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +15,10 @@ public class Payment {
     private double amount;
     private String paymentMethod;
 
-    // Getter och Setter
+    // Lägg till en referens till User om du vill lagra användarinformationen direkt i Payment
+    private User user;
+
+    // Getter och Setter för Payment
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -26,4 +30,8 @@ public class Payment {
 
     public String getPaymentMethod() { return paymentMethod; }
     public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+
+    // Getter och Setter för User
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }
