@@ -1,6 +1,5 @@
 package com.ecommerce.paymentservice;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,33 +10,32 @@ import reactor.core.publisher.Mono;
 public class PaymentController {
 
     private final PaymentRepository paymentRepository;
-    private final WebClient webClient;  // Lägg till detta!
+    private final WebClient webClient;
 
-    public PaymentController(PaymentRepository paymentRepository, WebClient webClient) {
+    public PaymentController(PaymentRepository paymentRepository, WebClient.Builder webClientBuilder) {
         this.paymentRepository = paymentRepository;
-        this.webClient = webClient;  // Spara webClient som en instansvariabel
-
+        this.webClient = webClientBuilder.baseUrl("http://ordermicro-env.eba-ha662mef.eu-north-1.elasticbeanstalk.com/").build();
     }
+
     @GetMapping
     public ResponseEntity<?> getAllPayments() {
         return ResponseEntity.ok(paymentRepository.findAll());
     }
+
     @GetMapping("/order/{id}")
-    public Mono<ResponseEntity<Payment>> getPaymentByOrderId(@PathVariable Long id) {
-        return Mono.justOrEmpty((Payment) paymentRepository.findByOrderId(id))
+    public Mono<ResponseEntity<PaymentsResponse>> getPaymentByOrderId(@PathVariable Long id) {
+        return Mono.justOrEmpty(paymentRepository.findByOrderId(id))
                 .flatMap(payment -> {
-                        if (payment.getUser() == null) {
-                            return Mono.just(ResponseEntity.ok(payment));
-        }
-                        return webClient.get()
-                                .uri("/users/" + payment.getUser().getId())
-                                .retrieve()
-                                .bodyToMono(User.class)
-                                .map(user -> {
-                                    payment.setUser(user);
-                                    return ResponseEntity.ok(payment);
-                                });
-    })
-            .defaultIfEmpty(ResponseEntity.notFound().build());
+                    if (payment.getUserId() == null) {
+                        return Mono.just(ResponseEntity.ok(new PaymentsResponse(payment, null)));
+                    }
+                    return webClient.get()
+                            .uri("/users/" + payment.getUserId())
+                            .retrieve()
+                            .bodyToMono(User.class)
+                            .map(user -> ResponseEntity.ok(new PaymentsResponse(payment, user)))
+                            .defaultIfEmpty(ResponseEntity.ok(new PaymentsResponse(payment, null)));
+                })
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 }
