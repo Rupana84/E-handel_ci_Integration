@@ -1,8 +1,10 @@
-package com.ecommerce.paymentservice.repository;
+package com.ecommerce.paymentservice;
 
-import com.ecommerce.paymentservice.model.Payment;
+import com.ecommerce.paymentservice.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    Payment findByOrderId(Long orderId);  // För att hitta betalning baserat på orderId
+@Repository
+public interface PaymentRepository extends JpaRepository <Payment, Long> {
+    Payment findByOrderId(Long orderId);
 }
