@@ -1,0 +1,29 @@
+API
+1. Hämta alla betalningar:
+URL: GET /payments
+
+Svar: Lista på alla betalningar.
+
+2. Hämta betalning baserat på beställnings-ID:
+URL: GET /payments/order/{id}
+
+Svar: En betalning och tillhörande användardata (om användaren finns).
+
+Testa med Postman
+Hämta alla betalningar:
+
+Skicka en GET-förfrågan till http://localhost:8081/payments.
+
+Hämta betalning baserat på order-ID:
+
+Skicka en GET-förfrågan till http://localhost:8081/payments/order/{orderId} där {orderId} är det faktiska order-ID:t.
+
+Konfiguration
+Port: 8081
+
+Databas: MySQL
+
+API-ändpunkt: /payments
+
+Slutord
+Detta system tillhandahåller grundläggande betalningstjänster.
