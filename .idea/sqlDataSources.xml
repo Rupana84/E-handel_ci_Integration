@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="e7e24164-d817-4200-b26c-807e7ba2e2ca" name="gasb@localhost Mapping">
+      <data-sources db="63dd70ea-eaa3-4ecb-b19b-7159ca75e35e" />
+    </mapping>
+    <mapping uuid="feb6d3f6-508e-4f15-96eb-d07c4dc710d1" name="gasb@127.0.0.1 Mapping">
+      <data-sources db="8ab62cd2-7f07-49a8-96c6-b1334ba519e0" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>
