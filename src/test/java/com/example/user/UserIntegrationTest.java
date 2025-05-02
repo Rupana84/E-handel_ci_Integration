@@ -28,7 +28,7 @@
         @MockBean
         private ProductClient productClient;
 
-        //Integration Test---> Test 1: Save and fetch user from test DB
+        //Integration Test---> Test 1: Save and fetch user from test DB of test_db
 
         @Test
         void shouldCreateAndFetchUserFromDatabase() {
@@ -85,7 +85,7 @@
             boolean deleted = userService.deleteUser(saved.getId());
             Optional<User> found = userService.getUserById(saved.getId());
 
-            // Assert
+            // Assert the
             assertTrue(deleted);
             assertFalse(found.isPresent());
         }
