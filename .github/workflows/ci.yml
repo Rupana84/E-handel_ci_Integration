@@ -1,9 +1,9 @@
-name: Docker DB CI
+name: workflow with docker image database test
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-with-docker:
     runs-on: ubuntu-latest
 
     services:
@@ -12,8 +12,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: Hardee9284
           MYSQL_DATABASE: test_db
-          MYSQL_USER: root
-          MYSQL_PASSWORD: Hardee9284
         ports:
           - 3306:3306
         options: >-
@@ -26,28 +24,28 @@ jobs:
       DB_URL: jdbc:mysql://localhost:3306/test_db
       DB_USER: root
       DB_PASSWORD: Hardee9284
-      PRODUCT_SERVICE_URL: http://localhost:8081
+      PRODUCT_SERVICE_URL: http://localhost:8081  # for @Value or WebClient injection if needed
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'temurin'
 
-      - name: Wait for MySQL
+      - name: Wait for MySQL to be ready
         run: |
+          echo "Waiting for MySQL to be ready..."
           for i in {1..30}; do
             if mysqladmin ping -h "127.0.0.1" --silent; then
-              echo "MySQL ready!"
+              echo "MySQL is up!"
               break
             fi
-            echo "Waiting for MySQL..."
+            echo "Waiting..."
             sleep 2
           done
 
-      - name: Build and Test
+      - name: Build and run tests
         run: mvn clean verify
