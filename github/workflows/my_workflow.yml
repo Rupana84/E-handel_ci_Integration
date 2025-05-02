@@ -26,7 +26,7 @@ jobs:
       DB_URL: jdbc:mysql://localhost:3306/testdb
       DB_USER: testuser
       DB_PASSWORD: testpass
-      PRODUCT_SERVICE_URL: http://localhost:8081
+      PRODUCT_SERVICE_URL: http://localhost:8081 # just mock
 
     steps:
       - uses: actions/checkout@v4
