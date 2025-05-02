@@ -14,11 +14,7 @@ jobs:
           MYSQL_DATABASE: test_db
         ports:
           - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+        options: "--health-cmd='mysqladmin ping --silent' --health-interval=10s --health-timeout=5s --health-retries=5"
 
     env:
       DB_URL: ${{ secrets.DB_URL }}
@@ -27,26 +23,13 @@ jobs:
       PRODUCT_SERVICE_URL: ${{ secrets.PRODUCT_SERVICE_URL }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Wait for MySQL to be ready
-        run: |
-          echo "Waiting for MySQL to be ready..."
-          for i in {1..30}; do
-            if mysqladmin ping -h "127.0.0.1" --silent; then
-              echo "MySQL is up!"
-              break
-            fi
-            echo "Waiting..."
-            sleep 2
-          done
 
       - name: Build and run tests
         run: mvn clean verify
