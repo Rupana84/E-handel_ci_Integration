@@ -1,9 +1,9 @@
-name: workflow with docker image database test
+name: Workflow with Docker MySQL DB and Maven Tests
 
 on: [push, pull_request]
 
 jobs:
-  build-with-docker:
+  build-and-test:
     runs-on: ubuntu-latest
 
     services:
@@ -12,18 +12,21 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: test_db
+          MYSQL_USER: ${{ secrets.DB_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
           - 3306:3306
-      options: "--health-cmd=\"mysqladmin ping --silent\" --health-interval=10s --health-timeout=5s --health-retries=5"
+        options: "--health-cmd=\"mysqladmin ping --silent\" --health-interval=10s --health-timeout=5s --health-retries=5"
 
     env:
-      DB_URL: ${{ secrets.DB_URL }}
+      DB_URL: jdbc:mysql://localhost:3306/test_db
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      PRODUCT_SERVICE_URL: ${{ secrets.PRODUCT_SERVICE_URL }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }} # secret
+      PRODUCT_SERVICE_URL: http://localhost:8081
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Java
         uses: actions/setup-java@v4
