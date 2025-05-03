@@ -1,9 +1,9 @@
-name: Workflow with Docker MySQL DB and Maven Tests
+name: workflow with docker image database test
 
 on: [push, pull_request]
 
 jobs:
-  build-and-test:
+  build-with-docker:
     runs-on: ubuntu-latest
 
     services:
@@ -27,8 +27,7 @@ jobs:
       PRODUCT_SERVICE_URL: http://localhost:8081
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Java
         uses: actions/setup-java@v4
