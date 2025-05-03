@@ -12,8 +12,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test_db
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
         ports:
           - 3306:3306
         options: >-
@@ -49,5 +47,5 @@ jobs:
             sleep 2
           done
 
-      - name: Build and test with Maven
+      - name: Build and run tests
         run: mvn clean verify
