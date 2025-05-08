@@ -10,7 +10,7 @@ URL: GET /payments/order/{id}
 Svar: En betalning och tillhörande användardata (om användaren finns).
 
 Testa med Postman
-Hämta alla betalningar:
+Hämta alla betalningare:
 
 Skicka en GET-förfrågan till http://localhost:8081/payments.
 
@@ -20,10 +20,3 @@ Skicka en GET-förfrågan till http://localhost:8081/payments/order/{orderId} d�
 
 Konfiguration
 Port: 8081
-
-Databas: MySQL
-
-API-ändpunkt: /payments
-
-Slutord
-Detta system tillhandahåller grundläggande betalningstjänster.
