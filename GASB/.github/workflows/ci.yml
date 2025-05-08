@@ -1,0 +1,44 @@
+name: Java CI with Maven and MySQL
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: Sannairis.2013
+          MYSQL_DATABASE: payment
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -pSannairis.2013"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout koden
+        uses: actions/checkout@v3
+
+      - name: Sätt upp JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Vänta på att MySQL startar
+        run: sleep 25
+
+      - name: Kör tester
+        run: ./mvnw clean test
+
+      - name: Bygg applikationen
+        run: ./mvnw clean package
