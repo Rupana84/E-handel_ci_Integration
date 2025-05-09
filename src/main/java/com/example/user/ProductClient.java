@@ -11,8 +11,9 @@ public class ProductClient {
 
     private final WebClient webClient;
 
+    // ✅ Fallback value is provided here using colon (:)
     public ProductClient(WebClient.Builder webClientBuilder,
-                         @Value("${PRODUCT_SERVICE_URL}") String productServiceUrl) {
+                         @Value("${PRODUCT_SERVICE_URL:http://localhost:8081}") String productServiceUrl) {
         this.webClient = webClientBuilder.baseUrl(productServiceUrl).build();
     }
 
@@ -27,8 +28,8 @@ public class ProductClient {
                 .retrieve()
                 .bodyToMono(String.class)
                 .onErrorResume(ex -> {
-                    ex.printStackTrace();  // or use a logger
-                    return Mono.just("[]"); // empty JSON array fallback
+                    ex.printStackTrace();
+                    return Mono.just("[]");
                 });
     }
 }

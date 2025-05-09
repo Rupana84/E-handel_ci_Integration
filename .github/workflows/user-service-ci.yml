@@ -36,6 +36,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Wait for MySQL to be ready
         run: |
           echo "Waiting for MySQL to start..."
@@ -47,5 +55,5 @@ jobs:
             sleep 2
           done
 
-      - name: Build and run tests
-        run: mvn clean verify
+      - name: Build and run tests with test profile
+        run: mvn clean verify -Dspring.profiles.active=test
