@@ -1,8 +1,8 @@
-name: CI for UserService with MySQL and Maven
+name: CI for OrderService with MySQL and Maven
 
 on:
   push:
-    branches: [main, user-service]
+    branches: [main, order-service]
   pull_request:
 
 jobs:
