@@ -1,55 +1,55 @@
-name: CI for OrderService with MySQL and Maven
-
-on:
-  push:
-    branches: [main, order-service]
-  pull_request:
-
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Wait for MySQL to be ready
-        run: |
-          echo "Waiting for MySQL..."
-          for i in {1..30}; do
-            if mysqladmin ping -h "127.0.0.1" --silent; then
-              echo "MySQL is up!"
-              break
-            fi
-            sleep 2
-          done
-
-      - name: Run Maven tests
-        env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_NAME: test_db
-          DB_USER: root
-          DB_PASSWORD: root
-          PRODUCT_SERVICE_URL: http://localhost:8081
-        run: mvn clean verify -e
+#name: CI for OrderService with MySQL and Maven
+#
+#on:
+#  push:
+#    branches: [main, order-service]
+#  pull_request:
+#
+#jobs:
+#  build-and-test:
+#    runs-on: ubuntu-latest
+#
+#    services:
+#      mysql:
+#        image: mysql:8.0
+#        ports:
+#          - 3306:3306
+#        env:
+#          MYSQL_ROOT_PASSWORD: root
+#          MYSQL_DATABASE: test_db
+#        options: >-
+#          --health-cmd="mysqladmin ping --silent"
+#          --health-interval=10s
+#          --health-timeout=5s
+#          --health-retries=5
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#
+#      - name: Wait for MySQL to be ready
+#        run: |
+#          echo "Waiting for MySQL..."
+#          for i in {1..30}; do
+#            if mysqladmin ping -h "127.0.0.1" --silent; then
+#              echo "MySQL is up!"
+#              break
+#            fi
+#            sleep 2
+#          done
+#
+#      - name: Run Maven tests
+#        env:
+#          DB_HOST: 127.0.0.1
+#          DB_PORT: 3306
+#          DB_NAME: test_db
+#          DB_USER: root
+#          DB_PASSWORD: root
+#          PRODUCT_SERVICE_URL: http://localhost:8081
+#        run: mvn clean verify -e

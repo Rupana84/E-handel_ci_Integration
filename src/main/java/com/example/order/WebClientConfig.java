@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.order;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
