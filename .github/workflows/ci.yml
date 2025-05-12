@@ -38,7 +38,8 @@ jobs:
         run: sleep 25
 
       - name: Kör tester
-        run: ./mvnw clean test
+        run: mvn clean test
 
       - name: Bygg applikationen
-        run: ./mvnw clean package
+        run: mvn clean package
+
