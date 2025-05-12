@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -13,21 +13,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GASB</name>
 	<description>Demo project for Spring Boot</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version> <!-- Se till att detta är 17 -->
 	</properties>
 	<dependencies>
 		<!-- Spring Boot Starter för JPA -->
@@ -86,7 +73,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.8.2</version> <!-- Sätt gärna den senaste versionen -->
+			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -94,7 +81,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.8.2</version> <!-- Sätt gärna den senaste versionen -->
+			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -104,10 +91,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.4.4</version> <!-- Ändra till samma version som i parent -->
+				<version>3.4.4</version> <!-- Se till att denna version är samma som i parent -->
+				<configuration>
+					<mainClass>com.ecommerce.paymentservice.GasbApplication</mainClass> <!-- Ange din main-klass här -->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
