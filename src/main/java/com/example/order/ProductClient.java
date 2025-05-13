@@ -1,4 +1,4 @@
-package com.example.user;
+package com.example.order;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
