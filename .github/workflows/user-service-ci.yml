@@ -51,5 +51,5 @@ jobs:
           DB_NAME: test_db
           DB_USER: root
           DB_PASSWORD: root
-          PRODUCT_SERVICE_URL: http://localhost:8081
+          PRODUCT_SERVICE_URL: http://localhost:8082
         run: mvn clean verify -e
