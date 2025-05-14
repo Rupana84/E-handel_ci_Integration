@@ -2,7 +2,7 @@ name: CI for UserService with MySQL and Maven
 
 on:
   push:
-    branches: [main, user-service]
+    branches: [Main, user-service]
   pull_request:
 
 jobs:
