@@ -44,7 +44,7 @@ jobs:
             sleep 2
           done
 
-      - name: Run Maven tests
+      - name: Run Maven tests with test profile
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
@@ -52,4 +52,4 @@ jobs:
           DB_USER: root
           DB_PASSWORD: root
           PRODUCT_SERVICE_URL: http://localhost:8082
-        run: mvn clean verify -e
+        run: mvn clean verify -Dspring.profiles.active=test -e
