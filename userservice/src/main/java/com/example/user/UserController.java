@@ -63,5 +63,6 @@ public class UserController {
     public ResponseEntity<String> getProductsFromProductService() {
         String products = userService.getAllProducts();
         return ResponseEntity.ok(products);
+        //test for github actions
     }
 }
