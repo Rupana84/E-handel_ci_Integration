@@ -10,6 +10,7 @@
 	class UserApplicationTests {
 
 
+		//test
 	    private String productServiceUrl;
 
 		@Test
