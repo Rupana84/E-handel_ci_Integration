@@ -45,6 +45,7 @@ jobs:
           done
 
       - name: Run Maven tests with test profile
+        working-directory: ./userservice
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
