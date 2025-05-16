@@ -63,18 +63,16 @@ This service is part of a distributed e-commerce backend project, where each tea
    # mvn clean test
    CI tests will also run automatically on push and pull requests via GitHub Actions.
 
-   API Endpoints
-   ---------------
+  ### API Endpoints
 
-   Method          | Endpoint             | Description
-   GET             | /users               | Get all users
-   GET             | /users/{id}          | Get user by ID
-   POST            | /users               | Create new user
-   PUT             | /users/{id}          | Update user
-   DELETE          | /users/{id}          | Delete user
-   GET             | /users/products-from-service | Fetch products from ProductService
-
-
+| Method | Endpoint                      | Description                         |
+|--------|-------------------------------|-------------------------------------|
+| GET    | /users                        | Get all users                       |
+| GET    | /users/{id}                   | Get user by ID                      |
+| POST   | /users                        | Create new user                     |
+| PUT    | /users/{id}                   | Update user                         |
+| DELETE | /users/{id}                   | Delete user                         |
+| GET    | /users/products-from-service | Fetch products from ProductService   |
 
 Folder Structure
 userservice/
