@@ -1,44 +1,47 @@
-# User Service – E-handel_ci_Integration
+# User Service – E-handel\_ci\_Integration
 
-This is the **UserService** microservice for the E-handel backend system, developed as part of a group examination project using a **microservices architecture** with Spring Boot and MySQL.
+This is the **User Service** microservice in the fullstack e-commerce system, developed as part of a collaborative group project at Folkuniversitetet.
 
-##  Responsible Developer
+##  Contributors
 
-**Gurpreet Singh Rupana**  
-Responsible for the development and testing of the **User Service**.
-
-##  Part of a Microservices System
-
-This service is part of a distributed e-commerce backend project, where each team member is responsible for one microservice:
-
-| Microservice        | Developer              |
-|---------------------|------------------------|
-| User Service        | Gurpreet Singh Rupana  |
-| Order Service       | Ali Asheer             |
-| Product Service     | Holy                   |
-| Payment Service     | Ahmed                  |
+* **Gurpreet Singh Rupana** – User Service
+* **Ali Asheer** – Order Service
+* **Holy** – Product Service *(used in this repo only for WebClient integration)*
+* **Ahmed** – Payment Service *(not included in this version)*
 
 ---
 
-##  Tech Stack
+##  Project Structure
 
-- **Java 17**
-- **Spring Boot**
-- **Spring Data JPA**
-- **MySQL**
-- **WebClient** (for service-to-service communication)
-- **JUnit 5 / Mockito** (for testing)
-- **GitHub Actions** (for CI)
+```
+E-handel_ci_Integration/
+├── userservice/
+│   ├── src/
+│   │   └── main/java/com/example/user/
+│   │       ├── UserApplication.java
+│   │       ├── UserController.java
+│   │       ├── UserService.java
+│   │       ├── UserRepository.java
+│   │       └── ProductClient.java
+│   └── resources/
+│       └── application.properties
+├── orderservice/
+├── productService/
+│   └── product-microservice-holy/ *(only used for WebClient call)*
+└── README.md
+```
 
 ---
 
-##  Features
+##  Purpose of Product Service in This Version
 
-- Create, read, update, and delete user accounts.
-- Fetch product data from `ProductService` using WebClient.
-- RESTful API with validation and error handling.
-- Tested with unit, component, and integration tests.
-- CI pipeline with GitHub Actions (MySQL Docker service + Maven test).
+The **Product Service** is included **only to support WebClient functionality** in User Service, for the endpoint:
+
+```
+GET http://localhost:8080/users/products-from-service
+```
+
+This enables the User Service to consume and fetch product data during runtime, even if the Product Service is not fully integrated yet.
 
 ---
 
@@ -46,46 +49,58 @@ This service is part of a distributed e-commerce backend project, where each tea
 
 1. Clone the repository:
 
-  # git clone https://github.com/Rupana84/E-handel_ci_Integration.git
-  cd userservice
-   
-2. Configure your application.properties with
-     spring.datasource.url=jdbc:mysql://localhost:3306/user_db
-     spring.datasource.username=your-username
-     spring.datasource.password=your-password
+```bash
+git clone https://github.com/Rupana84/E-handel_ci_Integration.git
+cd E-handel_ci_Integration
+```
 
-4. Run with Maven:
+2. Navigate to `userservice` and run:
 
-   # mvn spring-boot:run
+```bash
+mvn spring-boot:run
+```
 
-5. Testing
+Make sure your local MySQL database is running with:
 
-   # mvn clean test
-   CI tests will also run automatically on push and pull requests via GitHub Actions.
+* DB name: `test_db`
+* User: `root`
+* Password: `pass123`
 
-  ### API Endpoints
+---
 
-| Method | Endpoint                      | Description                         |
-|--------|-------------------------------|-------------------------------------|
-| GET    | /users                        | Get all users                       |
-| GET    | /users/{id}                   | Get user by ID                      |
-| POST   | /users                        | Create new user                     |
-| PUT    | /users/{id}                   | Update user                         |
-| DELETE | /users/{id}                   | Delete user                         |
-| GET    | /users/products-from-service | Fetch products from ProductService   |
+##  API Endpoints (User Service)
 
-Folder Structure
-userservice/
-src/
-main/java/com/example/user/
-test/java/com/example/user/
-pom.xml
-.github/workflows/user-service-ci.yml
+| Endpoint                       | Method | Description                                       |
+| ------------------------------ | ------ | ------------------------------------------------- |
+| `/users`                       | GET    | Get all users                                     |
+| `/users/{id}`                  | GET    | Get user by ID                                    |
+| `/users`                       | POST   | Create a new user                                 |
+| `/users/{id}`                  | PUT    | Update existing user                              |
+| `/users/{id}`                  | DELETE | Delete user                                       |
+| `/users/products-from-service` | GET    | Fetch products via WebClient from Product Service |
 
+---
 
+##  Testing
 
-Credits
-- Gurpreet Singh Rupana User Service
-- Ali Asheer Order Service
-- Holy Product Service
-- Ahmed Payment Service
+Use Postman or Swagger UI to test endpoints. Make sure the Product Service is reachable if calling the `/products-from-service` endpoint.
+
+---
+
+##  Technologies Used
+
+* Java 17
+* Spring Boot 3.4+
+* Spring Data JPA
+* MySQL
+* WebClient (REST communication)
+* Maven
+
+---
+
+##  Notes
+
+* This repo uses **ProductMicro** code temporarily only for WebClient testing.
+* Team members will merge their own services into main later if needed.
+
+Feel free to reach out to contributors via GitHub for collaboration or review.
